@@ -240,8 +240,8 @@ function getExtraTime($emp_id, $date) {
     // print_r($sql);
     $result = $db->query($sql);
     if ($result) {
-        // print_r($result); // Print the contents of $row
-        $row = mysqli_fetch_assoc($result);
+        //print_r($result); // Print the contents of $row
+        $row = $result;
         // print_r($row); // Print the contents of $row
         return $row;
     } else {
