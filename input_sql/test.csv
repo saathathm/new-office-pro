@@ -1,0 +1,27 @@
+NAME;SURNAME;ADDRESS;SUBURB;STATE;ZIP;MOBILE;MOBILE2;home_phone;home_phone2;business_phone;alt_phone 
+kuba;toma;33 surf st;brisbane;qld;4100;765123569;238656792;;;;
+jakub;toma;33 surf st;brisbane;qld;4100;765123569;;;;;
+adam;nizin;42 seaside blvd;sydney;nsw;2030;762364981;;;;;
+adam;nizin;42 seasid blvd;sydney;nsw;2030;762364981;;;;;
+a;nizin;42 seasid blvd;sydney;nsw;2030;762364981;762364981;;;;
+michael;karp;11 aloha ave;melbourne;vic;4090;623554905;72810765;;;;
+michael;karp;11 aloha ave;melbourne;vic;4090;623554905;72810765;;;;623554905
+michael;karp;11 aloha ave;melbourne;vic;4090;62355490;72810765;;;;
+michael;karps;11 aloha ave;melbourne;vic;4090;623554905;72810765;;;;623554905
+;karp;11 aloha;melbourne;vic;4090;623554905;72810765;;;;
+robert;wasilewski;77 miami st;cairns;qld;6000;762350764;;;;;
+robert;wasilewski;77 miami st;cairns;qld;6000;762350764;;;;;
+r;wasilewski;;cairns;qld;6000;762350764;;762350764;;;
+;toma;33 surf ;brisbane;qld;4100;765123569;238656792;;;;
+Sebastian ;Falk;100 strong ave;perth;wa;7001;735667121;;;;;
+Pablo;Miller;12 wise st;sydney;nsw;7612;725467831;;;725467831;;
+Pablo;Miller;12 wise st;sydney;nsw;7612;72546783;;;;;
+Pablo;Miller;12 wise ;sydney;nsw;7612;72546783;;;;;
+Pablo;Miller;12 wise st;sydney;nsw;7612;725467831;;;;;
+Pablo;Miller;12 wise st;sydney;nsw;7612;725467831;;725467831;;;
+Pablo;Miller;;sydney;nsw;7612;725467831;;;;;
+Monica;Bella;40 long island;cairns;qld;6742;875235818;;;;;
+Monica;Bella;40 long island;cairns;qld;6742;875235818;;;;;
+Monica;Bella;40 long island;cairns;qld;6742;875235818;;;;;
+M;Bell;40 long;cairns;qld;6742;875235818;;;;;
+Monica;Bella;40 long island;cairns;qld;6742;875235818;;;;;
