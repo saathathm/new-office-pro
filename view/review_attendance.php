@@ -46,7 +46,7 @@ if (@$_REQUEST['date3'] == "") {
       <?php 
       $obj=new attendance();
       $result=$obj->reviewPendingAttendance($_REQUEST['date3']);
-      while($value=mysql_fetch_assoc($result)){
+      while($value=mysqli_fetch_assoc($result)){
 //           if($_SESSION['emp_type']==1 && $value['emp_type']!=2) {continue;}  
       $id=$value['id'];
       $employee_id=$value['emp_id'];

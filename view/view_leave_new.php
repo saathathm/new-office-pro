@@ -50,13 +50,15 @@ if (isset($_REQUEST['s']) && $_REQUEST['s'] == '2') {
 require_once '../model/new_leave.php';
 $obj = new newLeave();
 $result = $obj->getEmpLeavesforApprove();
-while ($val = mysql_fetch_assoc($result)) {
+while ($val = mysqli_fetch_assoc($result)) {
 
     $empid = $val['emp_id'];
     $leave_id = $val['leave_id'];
+    // print_r($val['id']);
+    // die;
     $result_hours = $obj->getEmpTotalLeavesHours($val['id']);
 
-    while ($value_hours = mysql_fetch_assoc($result_hours)) {
+    while ($value_hours = mysqli_fetch_assoc($result_hours)) {
         $total_hours[] = $value_hours['total_hours'];
         $leave_on[] = $value_hours['leave_on'];
     }

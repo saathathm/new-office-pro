@@ -23,7 +23,7 @@ $obj = new Cpanel();
     
          <?php
         $result = $obj->getOffDay();
-        while ($row = mysql_fetch_assoc($result)) {?>
+        while ($row = mysqli_fetch_assoc($result)) {?>
             <tr><td> <?php  echo $row['date']; ?></td><td><a href="../controller/off_day.php?off_id=<?php echo $row['id']; ?> & action=delete"><img src="images/cross.png" width="25px"></a></td></tr>
  <?php }
         ?>

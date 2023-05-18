@@ -27,7 +27,7 @@
 			// add function levenshtein if doesn't exist
 			$query = "SHOW FUNCTION STATUS like 'levenshtein'";
 			$result = mysql_query($query) or die("Mysql error:" . mysql_error());
-			$rows = mysql_fetch_array($result);
+			$rows = mysqli_fetch_array($result);
 			if(count($rows['Name']) == 0) 
 				// the function doesn't exists
 			{	
@@ -77,7 +77,7 @@
 			$id = $_POST['id'];
 			$query = "SELECT * FROM manual_check WHERE id = $id";
 			$result = mysql_query($query) or die("SQL SELECT with id: ". mysql_error());
-			$rows = mysql_fetch_assoc($result);
+			$rows = mysqli_fetch_assoc($result);
 			
 			// select similars records from the contacts table.
 			$sql = "SELECT * , (levenshtein(name, '".$rows['name']."') + levenshtein(surname, '".$rows['surname']."') + "
@@ -89,7 +89,7 @@
 			$result = mysql_query($sql) or die("SQL INSERT into contacts: ". mysql_error());
 			
 			$total_rows = 0;
-			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				$persons[] = array(
 					'id' => $row['id'],
 					'name' => $row['name'],
@@ -116,7 +116,7 @@
 	case "totalrows":
 		$sql = "SELECT FOUND_ROWS() AS `found_rows`;";
 		$rows = mysql_query($sql);
-		$rows = mysql_fetch_assoc($rows);
+		$rows = mysqli_fetch_assoc($rows);
 		$total_rows = $rows['found_rows'];
 		break;
 		
@@ -127,7 +127,7 @@
 			$id = $_POST['id'];
 			$query = "SELECT * FROM manual_check WHERE id = $id";
 			$result = mysql_query($query) or die("SQL SELECT with id: ". mysql_error());
-			$rows = mysql_fetch_assoc($result);
+			$rows = mysqli_fetch_assoc($result);
 			
 			$sql = "INSERT INTO contacts ";
 			$sql .= "(name, surname, address, suburb, state, zip, phone, alt_phone, alt_phone2, business_name, business_address, business_zip, last_update, classification, comments) ";
@@ -152,7 +152,7 @@
 			$id = $_POST['id'];
 			$query = "SELECT * FROM manual_check WHERE id = $id";
 			$result = mysql_query($query) or die("SQL SELECT with id: ". mysql_error());
-			$rows = mysql_fetch_assoc($result);
+			$rows = mysqli_fetch_assoc($result);
 			
 			$sql = "INSERT INTO dups ";
 			$sql .= "(name, surname, address, suburb, state, zip, phone, alt_phone, alt_phone2, business_name, business_address, business_zip, last_update, classification, comments) ";
@@ -193,12 +193,12 @@
 			$result = mysql_query($query) or die("SQL Error SELECT: ".mysql_error());
 			$sql = "SELECT FOUND_ROWS() AS 'found_rows';";
 			$rows = mysql_query($sql);
-			$rows = mysql_fetch_assoc($rows);
+			$rows = mysqli_fetch_assoc($rows);
 			$total_rows = $rows['found_rows'];
 
 			$persons = null;
 			
-			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+			while ($row = mysqli_fetch_array($result, MYSQL_ASSOC)) {
 				$persons[] = array(
 					'id' => $row['id'],
 					'name' => $row['name'],

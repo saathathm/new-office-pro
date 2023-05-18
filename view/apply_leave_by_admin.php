@@ -6,7 +6,7 @@ include_once '../model/leave.php';
 include_once '../model/employee.php';
 $obj=new employee();
 $result=$obj->getEmployee(@$_SESSION['emp_id']);
-$value= mysql_fetch_assoc($result);
+$value= mysqli_fetch_assoc($result);
 if (isset($_REQUEST['s']) && $_REQUEST['s']=='1') {
     echo '<div class="alert alert-error">
          <button type="button" class="close" data-dismiss="alert">x</button>
@@ -214,7 +214,7 @@ else{
                         <?php
                        
                         $result_emp = $obj->getAllEmployee();
-                        while ($value_emp = mysql_fetch_assoc($result_emp)) {
+                        while ($value_emp = mysqli_fetch_assoc($result_emp)) {
                               //if($val2['leave_id']==3){continue;}
                             ?>   
                             <option value="<?php echo $value_emp['emp_id']; ?>">
@@ -240,7 +240,7 @@ else{
                         <?php
                         $obj2 = new leave();
                         $result2 = $obj2->getLeave();
-                        while ($val2 = mysql_fetch_assoc($result2)) {
+                        while ($val2 = mysqli_fetch_assoc($result2)) {
                               ?>   
                             <option value="<?php echo $val2['leave_id']; ?>">
                                 <?php echo $val2['leave_type']; ?>

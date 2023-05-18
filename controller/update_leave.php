@@ -11,7 +11,7 @@ $short = $_REQUEST['short'];
 require_once '../model/leave.php';
 $obj = new leave();
 
-$count = mysql_num_rows($obj->getIndividualLeave($emp_id));
+$count = mysqli_num_rows($obj->getIndividualLeave($emp_id));
 if ($count > 0) {
     $result = $obj->updateIndividualLeave($emp_id, $annual, $casual, $medical, $short);
     if ($result) {

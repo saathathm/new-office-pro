@@ -16,7 +16,7 @@ $obj=new employee();
                         <?php
                        
                         $result_emp = $obj->getAllEmployee();
-                        while ($value_emp = mysql_fetch_assoc($result_emp)) {
+                        while ($value_emp = mysqli_fetch_assoc($result_emp)) {
                               //if($val2['leave_id']==3){continue;}
                             ?>   
                             <option value="<?php echo $value_emp['emp_id']; ?>">
@@ -31,7 +31,7 @@ $obj=new employee();
 
     <div class="span12 "><table align="center"><tr><td><?php
     $result_name = $obj->getEmployee($_SESSION['staff_id']);
-            $value_name=  mysql_fetch_assoc($result_name);
+            $value_name=  mysqli_fetch_assoc($result_name);
             echo"Detailed Report-<b>"."&nbsp".  $value_name['name']."</b>";
     
     ?></td></tr></table></div>

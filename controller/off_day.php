@@ -9,7 +9,7 @@ switch ($action) {
     case 'add':
       if (!empty($date)) {
     $result = $obj->insertOffDay($date);
-    $count = mysql_num_rows($result);
+    $count = mysqli_num_rows($result);
     if ($count != 0) {
         header("Location:../view/add_off_day.php");
     } else {

@@ -6,11 +6,11 @@ echo $where_in;
     $result_taken_leave = $newLeaveobj->getTakenLeave($emp_id, $where_in,$currentyear);
    while ($value_taken_leave_array[] = mysqli_fetch_array($result_taken_leave));
   
-    $count_indi_leave = ($result2 = $newLeaveobj->getIndividualLeave($emp_id))->num_rows; 
+    $count_indi_leave = mysqli_num_rows($result2 = $newLeaveobj->getIndividualLeave($emp_id)); 
 
     if ($count_indi_leave > 0) {
         $result1 = $newLeaveobj->getIndividualLeave($emp_id);
-        $value_ini_leave = ($result1)->fetch_assoc();
+        $value_ini_leave = mysqli_fetch_assoc($result1);
 
 
         $common_leave_array[1] = $value_ini_leave['annual'];
@@ -19,12 +19,13 @@ echo $where_in;
         $common_leave_array[5] = $value_ini_leave['short_leave'];
     } else {        
         $result1 = $newLeaveobj->getLeave();
-        while ($value_common_leave[] = ($result1)->num_rows);
+        while ($value_common_leave[] = mysqli_fetch_row($result1));
          
         $common_leave_array[1] = $value_common_leave[0][2];  //as annual
         $common_leave_array[2] = $value_common_leave[1][2];  //as casual
         $common_leave_array[3] = $value_common_leave[2][2];   //as medical
         $common_leave_array[5] = $value_common_leave[3][2];   //short_leave
+        
        
     }
 
@@ -36,11 +37,11 @@ function levae_balance_for_detail($emp_id,$where_in,$current_year){
     $result_taken_leave = $newLeaveobj->getTakenLeaveForDetail($emp_id, $where_in,$current_year);
     while ($value_taken_leave_array[] = mysqli_fetch_array($result_taken_leave));
 
-    $count_indi_leave = ($result2 = $newLeaveobj->getIndividualLeave($emp_id))->num_rows;
+    $count_indi_leave = mysqli_num_rows($result2 = $newLeaveobj->getIndividualLeave($emp_id));
 
     if ($count_indi_leave > 0) {
         $result1 = $newLeaveobj->getIndividualLeave($emp_id);
-        $value_ini_leave = ($result1)->fetch_assoc();
+        $value_ini_leave = mysqli_fetch_assoc($result1);
 
 
         $common_leave_array[1] = $value_ini_leave['annual'];

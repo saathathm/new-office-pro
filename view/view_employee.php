@@ -19,7 +19,7 @@ include_once 'user.php';
 
 $obj=new employee();
 $result=$obj->getAllEmployeeDetail2();
-while($value=mysql_fetch_assoc($result)){
+while($value=mysqli_fetch_assoc($result)){
 
     ?>
    

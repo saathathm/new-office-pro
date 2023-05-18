@@ -13,18 +13,18 @@ echo $emp_id = $_POST['emp_id'];
 //get entitlement leaves and leave taken by employee
 $result_leave_type = $obj->getLeave();
 
-while ($value = mysql_fetch_array($result_leave_type)) {
+while ($value = mysqli_fetch_array($result_leave_type)) {
     $value_leave_id[] = $value['leave_id'];
 }
 $where_in = implode(',', $value_leave_id);
-$rrr = Leave_balance($emp_id, $where_in,$currentyear);
+$rrr = Leave_balance($emp_id, $where_in, $currentyear);
 //get staff's taken leave
 // $result_taken_leave = $obj->getTakenLeave($emp_id, $where_in,$currentyear);
-//   while ($value_taken_leave_array[] = mysql_fetch_array($result_taken_leave));
-//   $count_indi_leave = mysql_num_rows($result2 = $obj->getIndividualLeave($emp_id)); 
+//   while ($value_taken_leave_array[] = mysqli_fetch_array($result_taken_leave));
+//   $count_indi_leave = mysqli_num_rows($result2 = $obj->getIndividualLeave($emp_id)); 
 //    if ($count_indi_leave > 0) {
 //        $result1 = $obj->getIndividualLeave($emp_id);
-//        $value_ini_leave = mysql_fetch_assoc($result1);
+//        $value_ini_leave = mysqli_fetch_assoc($result1);
 //
 //
 //        $common_leave_array[1] = $value_ini_leave['annual'];
@@ -33,7 +33,7 @@ $rrr = Leave_balance($emp_id, $where_in,$currentyear);
 //        $common_leave_array[5] = $value_ini_leave['short_leave'];
 //    } else {        
 //        $result1 = $obj->getLeave();
-//        while ($value_common_leave[] = mysql_fetch_row($result1));
+//        while ($value_common_leave[] = mysqli_fetch_row($result1));
 //         
 //        $common_leave_array[1] = $value_common_leave[0][2];  //as annual
 //        $common_leave_array[2] = $value_common_leave[1][2];  //as casual
@@ -43,7 +43,7 @@ $rrr = Leave_balance($emp_id, $where_in,$currentyear);
 
 
 $leave_type = $_POST['leaveType'];
-echo $appliedDate = $_POST['appliedDate'];  
+echo $appliedDate = $_POST['appliedDate'];
 $duration = $_POST['duration'];
 ///// assign full day,half day and short hours
 if ($leave_type == 1) {
@@ -90,9 +90,9 @@ while ($current <= $last) {
 }
 ///get off day date array
 $getOffDayWeek = $obj1->getSpecificOffDayWeek($from, $to);
-$countOffDayWeek = mysql_num_rows($getOffDayWeek);
+$countOffDayWeek = mysqli_num_rows($getOffDayWeek);
 $array_off_day = array();
-while ($value_off_day = mysql_fetch_assoc($getOffDayWeek)) {
+while ($value_off_day = mysqli_fetch_assoc($getOffDayWeek)) {
     $array_off_day[] = $value_off_day['date'];
 }
 ///
@@ -118,29 +118,29 @@ foreach ($rrr[1] as $array_value) {
     if ($array_value[0] == $leave_type) {
         $leave_duration = $array_value[1];
     }
-}echo "--" . $leave_duration;
-$common_leave_array[$leave_type] * 8;
+}
+echo "--" . $leave_duration;
+// $common_leave_array[$leave_type] * 8;
+
 if ($leave_type == 1 || $leave_type == 2 || $leave_type == 3) {   // echo 'ld--'.$leave_duration.'tal--'.$total_apply_leave_duration.'ta--'.$rrr[0][$leave_type] * 8; die;
     if ($leave_duration + $total_apply_leave_duration <= $rrr[0][$leave_type] * 8) {
-        
-    }
-else{header("location:../view/$redirect_path.php?l=1");
+    } else {
+        header("location:../view/$redirect_path.php?l=1");
         exit();
-
+    }
 }
-}
-$count1 = mysql_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
+$count1 = mysqli_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
 //////////////////
 //check leave balance exceeded
 
 $result = $obj->checkLeaveOverlap($emp_id, $from, $to);
-while ($value = mysql_fetch_assoc($result)) {
+while ($value = mysqli_fetch_assoc($result)) {
     $leave_array[] = $value['leave_on'];
     $total_hours[] = $value['total_hours'];
 }
 $date_diff = @array_intersect($dates_array, $leave_array);
 
-if (!$date_diff) {//no over laps
+if (!$date_diff) { //no over laps
     if ($temp_leave_type == 5) {
         if ($count1 <= 1) {
             $obj->applyLeave($emp_id, $leave_type, $appliedDate, $from, $to, $total_duration, $reason, $dates_array);
@@ -152,12 +152,12 @@ if (!$date_diff) {//no over laps
         $obj->applyLeave($emp_id, $leave_type, $appliedDate, $from, $to, $total_duration, $reason, $dates_array);
         header("location:../view/$redirect_path.php?s=2");
     }
-} else {//overlap dates 
+} else { //overlap dates 
     if ($temp_leave_type == 5 || $temp_leave_type == 4) {
         if (!in_array(8, $total_hours)) {
-            $count1 = mysql_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
-            $count2 = mysql_num_rows($obj->checkHalfDayLeave($emp_id, $from));
-            $count3 = mysql_num_rows($obj->checkShortLeave($emp_id, $from));
+            $count1 = mysqli_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
+            $count2 = mysqli_num_rows($obj->checkHalfDayLeave($emp_id, $from));
+            $count3 = mysqli_num_rows($obj->checkShortLeave($emp_id, $from));
             switch ($temp_leave_type) {
                 case 5:
 
@@ -199,5 +199,3 @@ if (!$date_diff) {//no over laps
     }
 }
 ob_flush();
-?>
-

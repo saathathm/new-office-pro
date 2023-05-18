@@ -63,16 +63,15 @@ require_once '../model/cpanel.php';
             // print_r($val);
             // die;
             $valextratime = ($obj1->getExtraTime($val['emp_id'], $date));
-            print_r('valextratime');
-            print_r($valextratime);
+            // print_r($valextratime);
             // die;
-            $countextra = $valextratime['extra_time'];
+            $countextra = $valextratime->fetch_assoc();
             $valextratime = mysqli_fetch_assoc($obj1->getExtraTimeweekly($val['emp_id'], $start, $end));
             $value_extra_time_week = $valextratime['extra_time_week'];
 
             $gwhi = $obj1->getWorkingHoursIndividual($date, $val['emp_id']);
             $valuegwhi = mysqli_fetch_assoc($gwhi);
-            $seconds1 = $valuegwhi['diff'] + $countextra;
+            $seconds1 = $valuegwhi['diff'] + $countextra['extra_time'];
             //current week working hours
             $result2 = $obj1->getWeeklyWorkingHoursIndividual($start, $end, $val['emp_id']);
             $value2 = mysqli_fetch_assoc($result2);

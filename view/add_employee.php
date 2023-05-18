@@ -155,7 +155,7 @@ if (isset($_REQUEST['s']) && $_REQUEST['s']=='1') {
                             <?php
                             $obj = new employee();
                             $result = $obj->getEmployeeType();
-                            while ($value = mysql_fetch_assoc($result)) {
+                            while ($value = mysqli_fetch_assoc($result)) {
                                 ?>
                                 <option value="<?php echo $value['emp_type_id']; ?>">
                                     <?php echo $value['emp_type']; ?>  

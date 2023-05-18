@@ -52,15 +52,15 @@ $obj3=new leave();
          @$_REQUEST['date3']=$date;}
          @$_REQUEST['date3'];
          $result1=$obj2->getAllEmployeeDetail(); //get all employee's details
-         while($value=mysql_fetch_assoc($result1)){
+         while($value=mysqli_fetch_assoc($result1)){
          $emp_id=$value['emp_id'];
          $result=$obj1->getAttendanceSummary(@$_REQUEST['date3'],$emp_id); 
-         $val=mysql_fetch_assoc($result);
-         $count=  mysql_num_rows($result);
+         $val=mysqli_fetch_assoc($result);
+         $count=  mysqli_num_rows($result);
                         if($count==0){   //if count=0 employee's are not in office
          
                             $result2=$obj3->getLeaveDetail($emp_id,@$_REQUEST['date3']);  
-                            $count2=  mysql_num_rows($result2);
+                            $count2=  mysqli_num_rows($result2);
                                             
                                             if($count2>0){
                                             $emp_status='<span class="label label-info">On Leave</span>';
@@ -75,7 +75,7 @@ $obj3=new leave();
                                  else{$emp_status='<span class="label label-important">Logged Out</span>';}
                                      }
         $result3=$obj1->getspecificDatePendingAttendanceDetail(@$_REQUEST['date3'],$emp_id);
-        $value3=mysql_fetch_assoc($result3);
+        $value3=mysqli_fetch_assoc($result3);
         
        ?>
        <tr>

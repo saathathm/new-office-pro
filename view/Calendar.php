@@ -4,7 +4,7 @@ class Calendar
 	var $events;
 	var $persistanceManager;
 
-	function Calendar($date,$emp_id)
+	function Calendar($date)
 	{  
 		if(empty($date)) $date = time();
 		define('NUM_OF_DAYS', date('t',$date));

@@ -11,7 +11,7 @@ $action =$_POST['action'];
 $admin_id= $_SESSION['emp_id'];
 $obj=new attendance();
 $result1=$obj->checkOverlapNote2($employee_id,$from,$to,$date,$id); 
-$count= mysql_num_rows($result1); 
+$count= mysqli_num_rows($result1); 
 if($count==0){
 
 $result=$obj->updateAttendanceDetail($id,$employee_id,$admin_id,$date,$from,$to);

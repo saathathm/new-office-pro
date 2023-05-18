@@ -55,13 +55,25 @@ function getTakenLeaveForDetail($emp_id, $where_in,$current_year) {
 
     function applyLeave($emp_id, $leave_type, $appliedDate, $from, $to, $total_duration, $reason, $dates_array) {
         $db = new dbcon();
+        
         $sql = "insert into staff_leave_detail(emp_id,leave_id,applied_date,reason) value('$emp_id','$leave_type','$appliedDate','$reason')";
         $result = $db->query($sql);
-        $last_insert_id = mysql_insert_id();
+
+        // $last_insert_id = mysqli_insert_id();
+        $sql = "SELECT app_id FROM staff_leave_date order by app_id DESC";
+        $app_id = mysqli_fetch_assoc($db->query($sql));
+        $last_insert_id = ++$app_id['app_id'];
+        
         foreach ($dates_array as $leave_on) {
             //  echo $leave_on;
             $sql = "insert into staff_leave_date(app_id,leave_on,total_hours) value('$last_insert_id','$leave_on','$total_duration')";
             $result = $db->query($sql);
+            // print_r($last_insert_id);
+            // print_r('//');
+            // print_r($leave_on);
+            // print_r('//');
+            // print_r($total_duration);
+            // print_r('//');
         }
     }
 
@@ -78,6 +90,13 @@ function getTakenLeaveForDetail($emp_id, $where_in,$current_year) {
         $result = $db->query($sql);
         return $result;
     }
+
+    // function getEmpLeavesforApprove() {
+    //     $db = new dbcon();
+    //     $sql = "SELECT * FROM staff_leave_detail sl,employee e,leave_type l, staff_leave_date sld, leave_detail ld where  sl.emp_id=e.emp_id and sl.leave_id=l.leave_id and e.emp_id = ld.emp_id and ld.app_id = sld.app_id order by sld.app_id DESC";
+    //     $result = $db->query($sql);
+    //      return $result;
+    // }
 
     function getEmpTotalLeavesHours($id) {
         $db = new dbcon();

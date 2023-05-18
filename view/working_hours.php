@@ -27,7 +27,7 @@ if (isset($_REQUEST['f']) && $_REQUEST['f'] == '1') {
         require_once '../model/attendance.php';
         $obj=new attendance();
         $result=$obj->getPendingAttendanceDetail();   
-        while($val=mysql_fetch_assoc($result)){
+        while($val=mysqli_fetch_assoc($result)){
          
             ?> 
          <tr>

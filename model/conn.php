@@ -2,15 +2,20 @@
 
 class dbcon
 {
-    private $host = 'localhost';
-    private $username = 'root';
-    private $password = '';
-    private $database = 'ihrm_new';
+    private static $host = 'localhost';
+    private static $username = 'root';
+    private static $password = '';
+    private static $database = 'ihrm_new';
+
+    public static function dbhandler(){
+        $dbhandle = new mysqli(self::$host, self::$username, self::$password, self::$database);
+        return $dbhandle;
+    }
 
     public function query($sql)
     {
         // Connect to the server
-        $dbhandle = new mysqli($this->host, $this->username, $this->password, $this->database);
+        $dbhandle = self::dbhandler();
 
         // If not connected to the server or the database
         if ($dbhandle->connect_error) {

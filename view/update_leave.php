@@ -7,8 +7,8 @@ $obj=new employee();
 $obj1=new leave();
 $result=$obj->getEmployee($emp_id);
 
-echo $count_indi_leave= mysql_num_rows($result2=$obj1->getIndividualLeave($emp_id));
-$value=  mysql_fetch_assoc($result);
+echo $count_indi_leave= mysqli_num_rows($result2=$obj1->getIndividualLeave($emp_id));
+$value=  mysqli_fetch_assoc($result);
 if($count_indi_leave>0){
  $result1=$obj1->getIndividualLeave($emp_id);   
 }
@@ -26,7 +26,7 @@ else{
         <?php 
         if($count_indi_leave>0){
               $row = array();
-        while($row[]= mysql_fetch_assoc($result1)); print_r($row); ?>
+        while($row[]= mysqli_fetch_assoc($result1)); //print_r($row); ?>
        
         <td><input type="text" name="annual"  value="<?php   echo $row[0]['annual']; ?>"></td>
         <td><input type="text" name="casual"  value="<?php   echo $row[0]['casual']; ?>"></td>
@@ -34,7 +34,7 @@ else{
         <td><input type="text" name="short"   value="<?php   echo $row[0]['short_leave']; ?>"></td> 
        <?php  }else{
         $row = array();
-        while($row[] = mysql_fetch_row($result1));         print_r($row); ?>
+        while($row[] = mysqli_fetch_row($result1));        // print_r($row); ?>
       
         <td><input type="text" name="annual"  value="<?php   echo $row[0][2]; ?>"></td>
         <td><input type="text" name="casual"  value="<?php   echo $row[1][2]; ?>"></td>

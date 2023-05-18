@@ -36,14 +36,14 @@ switch ($action) {
 function addLoginTime($emp_id,$login,$date){
                 $obj=new attendance();
                 $result=$obj->getAttendanceDetail($emp_id,$date);
-                $count=mysql_num_rows($result);
+                $count=mysqli_num_rows($result);
                 if($count===0){$obj->addLoginTime($emp_id,$login,$date);
                 header("Location:../view/attendance.php?e=1");
                 }   
                     else{
                             $obj=new attendance();
                             $result1=$obj->checkLogoutTime($emp_id);
-                            $count1=mysql_num_rows($result1);
+                            $count1=mysqli_num_rows($result1);
   
                                 if($count1===0){$obj->addLoginTime($emp_id,$login,$date);
                                 header("Location:../view/attendance.php?e=2");
@@ -56,8 +56,8 @@ function addLoginTime($emp_id,$login,$date){
  function addLogoutTime($emp_id,$login,$date){
                 $obj=new attendance();
                 $result1=$obj->checkLogoutTime($emp_id);
-                $count=  mysql_num_rows($result1);
-                $value=  mysql_fetch_assoc($result1);
+                $count=  mysqli_num_rows($result1);
+                $value=  mysqli_fetch_assoc($result1);
                 $login_time=$value['login_time'];
                 $login_date=$value['date']; 
                 $time = strtotime($login_date);
@@ -78,17 +78,17 @@ function addLoginTime($emp_id,$login,$date){
                                            else{header("Location:../view/attendance.php");   } 
                                        }
 
- function addNoteLoginTime($emp_id,$time,$date2,$note){
+ function addNoteLoginTime($emp_id,$from,$time,$date2,$note){
                 $obj=new attendance();
-                $result=$obj->getAttendanceDetail($emp_id);
-                $count=mysql_num_rows($result);
-                if($count===0){$obj->addNoteLoginTime($emp_id,$time,$date2,$note);}   
+                $result=$obj->getAttendanceDetail($emp_id,$date2);
+                $count=mysqli_num_rows($result);
+                if($count===0){$obj->addNoteLoginTime($emp_id,$from,$time,$date2,$note);}   
                     else{
                             $obj=new attendance();
                             $result1=$obj->checkLogoutTime($emp_id);
-                             $count1=mysql_num_rows($result1);
+                             $count1=mysqli_num_rows($result1);
   
-                                if($count1===0){$obj->addNoteLoginTime($emp_id,$time,$date2,$note);}
+                                if($count1===0){$obj->addNoteLoginTime($emp_id,$from,$time,$date2,$note);}
                                 else{}
                         }    
      
@@ -97,7 +97,7 @@ function addLoginTime($emp_id,$login,$date){
 function addNoteLogoutTime($emp_id,$time,$date2,$note){
                 $obj=new attendance();
                 $result=$obj->updateNoteLogoutTime($emp_id,$time,$date2,$note);
-//                $count=mysql_num_rows($result);
+//                $count=mysqli_num_rows($result);
                 if(!$result){}   
                     else{}    
      }
@@ -111,7 +111,7 @@ else{
  
                 $obj=new attendance();
                 $result1=$obj->checkOverlapNote($emp_id,$from,$to,$date2); 
-                $count= mysql_num_rows($result1); 
+                $count= mysqli_num_rows($result1); 
                 if($count==0){
                 $result=$obj->addNoteLoginTime($emp_id,$from,$to,$date2,$note);  
                    header("Location:../view/attendance.php");   

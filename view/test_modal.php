@@ -29,10 +29,10 @@ if (isset($_REQUEST['employee_name'])) {
 require_once '../model/leave.php';
 $obj = new leave();
 $result = $obj->getLeaveHistoryNew(@$_REQUEST['id']);
-while ($val = mysql_fetch_assoc($result)) {
+while ($val = mysqli_fetch_assoc($result)) {
     $result_hours = $obj->getEmpTotalLeavesHours($val['id']);
 
-    while ($value_hours = mysql_fetch_assoc($result_hours)) {
+    while ($value_hours = mysqli_fetch_assoc($result_hours)) {
         $total_hours[] = $value_hours['total_hours'];
         $leave_on[] = $value_hours['leave_on'];
     }

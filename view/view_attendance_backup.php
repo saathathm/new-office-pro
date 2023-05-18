@@ -9,7 +9,7 @@ $date = date("Y-m-d");
 $obj=new attendance();
 $obj1=new employee();
 $result=$obj->checkLogoutTime1($_SESSION['emp_id']); //check employee who loggedout or not
-$count=mysql_num_rows($result);
+$count=mysqli_num_rows($result);
   if (isset($_REQUEST['f']) && $_REQUEST['f']=='1') {
     echo '<div class="alert alert-error">
       Time overlapping
@@ -51,13 +51,13 @@ $count=mysql_num_rows($result);
     
 $employee_id=@$_REQUEST['employee_id'];
 $result1=$obj->getAllAttendanceDetailByDay($employee_id,@$_REQUEST['date4']); 
-while($value=mysql_fetch_assoc($result1)){
+while($value=mysqli_fetch_assoc($result1)){
     $logout_by=$value['logout_by'] ;
     $edit_by=$value['edit_by'] ;
     $result2=$obj1->getEmployee($logout_by);
-    $value2= mysql_fetch_assoc($result2);
+    $value2= mysqli_fetch_assoc($result2);
     $result3=$obj1->getEmployee($edit_by);
-    $value3= mysql_fetch_assoc($result3);
+    $value3= mysqli_fetch_assoc($result3);
     
        ?>
         <?php if($value['logout_time']==0){?>

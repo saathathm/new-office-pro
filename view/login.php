@@ -46,32 +46,34 @@ include_once 'header2.php';
 </script>
 
 
-<div class="container">
+<div class="container-fluid">
 
-  <div id="login-wraper">
-    <form method="post" action="../controller/login.php" class="form login-form">
-      <legend><img src="bootstrap/LogoRgb.png" width="50%"></legend>
+  <center>
+    <div id="login-wraper" style="margin-top: 6rem;">
+      <form method="post" action="../controller/login.php" class="form login-form">
+        <legend><img src="bootstrap/LogoRgb.png" width="50%"></legend>
 
-      <div class="body">
+        <div class="body" style="margin-top: 3rem;">
 
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-user"></i></span>
-          <input type="text" class="span4" name="uname" id="uname" placeholder="Username">
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-user"></i></span>
+            <input type="text" class="span4" name="uname" id="uname" placeholder="Username">
+          </div>
+          <span id="uname_error" class="help-inline"></span>
+
+          <div class="input-prepend">
+            <span class="add-on"><i class="icon-lock"></i></span>
+            <input type="password" class="span4" name="pword" id="pass" placeholder="Password">
+          </div>
+          <span id="pass_error" class="help-inline"></span>
+
         </div>
-        <span id="uname_error" class="help-inline"></span>
 
-        <div class="input-prepend">
-          <span class="add-on"><i class="icon-lock"></i></span>
-          <input type="password" class="span4" name="pword" id="pass" placeholder="Password">
+        <div class="footer">
+          <button type="submit" id="submit" class="btn btn-success">Login</button>
         </div>
-        <span id="pass_error" class="help-inline"></span>
 
-      </div>
-
-      <div class="footer">
-        <button type="submit" id="submit" class="btn btn-success">Login</button>
-      </div>
-
-    </form>
-  </div>
-  <div>
+      </form>
+    </div>
+  </center>
+</div>

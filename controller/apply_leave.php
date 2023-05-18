@@ -20,11 +20,11 @@ $total_duration=$total_duration*8;
  //check leave balance exceeded
  $obj=new Leave();
  $result=$obj->checkLeaveOverlap($emp_id,$from,$to);
- $count=mysql_num_rows($result);
+ $count=mysqli_num_rows($result);
  if ($count == 0) {
 
     if ($leave_type == 5) {
-        $count = mysql_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
+        $count = mysqli_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
         if ($count < 2) {
 $obj->applyLeave($emp_id, $leave_type, $appliedDate, $from, $to, $total_duration, $reason);
 header("location:../view/apply_leave.php?s=2");
@@ -36,15 +36,15 @@ $obj->applyLeave($emp_id,$leave_type,$appliedDate,$from,$to,$total_duration,$rea
 header("location:../view/apply_leave.php?s=2");
     }
 } else {//overlap dates
-   while($value= mysql_fetch_assoc($result)){$arr[]= $value['leave_id']; }
+   while($value= mysqli_fetch_assoc($result)){$arr[]= $value['leave_id']; }
     //header("location:../view/apply_leave.php?s=1");
 if (in_array(1,$arr) || in_array(2,$arr) || in_array(3,$arr) ) {
      header("location:../view/apply_leave.php?s=1");
 }
 else{//not leave id 1,2,3
    
-    $count1 = mysql_num_rows($obj->checkShortLeaveExceeded($emp_id,$month,$year));
-    $count2=mysql_num_rows($obj->checkHalfDayLeave($emp_id,$from));
+    $count1 = mysqli_num_rows($obj->checkShortLeaveExceeded($emp_id,$month,$year));
+    $count2=mysqli_num_rows($obj->checkHalfDayLeave($emp_id,$from));
     switch ($leave_type) {
         case 5:
             if($count1>=2)  { header("location:../view/apply_leave.php?f=1");}

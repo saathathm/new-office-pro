@@ -4,7 +4,7 @@ if(!isset($_SESSION['emp_type'])){header("Location:login.php");}
 include_once '../model/employee.php';
 $obj=new employee();
 $result=$obj->getEmployee($_REQUEST['employee_id']);
-$value=  mysql_fetch_assoc($result);
+$value=  mysqli_fetch_assoc($result);
 ?>
 
     <div class="container rbborder" >
@@ -39,7 +39,7 @@ $value=  mysql_fetch_assoc($result);
                             <?php
                            
                             $result1 = $obj->getEmployeeType();
-                            while ($value1 = mysql_fetch_assoc($result1)) {
+                            while ($value1 = mysqli_fetch_assoc($result1)) {
                                 ?>
                                 <option value="<?php echo $value1['emp_type_id']; ?>" <?php if($value1['emp_type_id']==$value['emp_type']){echo 'selected="selected"';} ?>>
                                     <?php echo $value1['emp_type']; ?>  

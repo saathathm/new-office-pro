@@ -14,11 +14,11 @@
         $emp_id = $_REQUEST['employee_id'];
         $leave_id = $_REQUEST['leave_id'];
         $result = $obj->getLeaveHistoryNew($emp_id);
-        while ($value = mysql_fetch_assoc($result)) {
+        while ($value = mysqli_fetch_assoc($result)) {
             $result_hours = $obj->getEmpTotalLeavesHours($value['id']);
             $total_hours=array();
             $leave_on=array();
-            while ($value_hours = mysql_fetch_assoc($result_hours)) {
+            while ($value_hours = mysqli_fetch_assoc($result_hours)) {
                 $total_hours[] = $value_hours['total_hours'];
                 $leave_on[] = $value_hours['leave_on'];
             }

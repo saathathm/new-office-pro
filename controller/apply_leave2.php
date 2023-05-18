@@ -18,7 +18,7 @@ $employee_email='';
 $employee_phno='';
 
 
-while ($row = mysql_fetch_array($emp_con_det)) {
+while ($row = mysqli_fetch_array($emp_con_det)) {
         $employee_name = $row['name'];
         $employee_email = $row['email'];
         $employee_phno = $row['p_no'];
@@ -32,15 +32,15 @@ while ($row = mysql_fetch_array($emp_con_det)) {
 //get entitlement leaves and leave taken by employee
 $result_leave_type = $obj->getLeave();
 
-while ($value = mysql_fetch_array($result_leave_type)) {
+while ($value = mysqli_fetch_array($result_leave_type)) {
     $value_leave_id[] = $value['leave_id'];
 }
 $where_in = implode(',', $value_leave_id);
 $rrr = Leave_balance($emp_id, $where_in,$currentyear);
 //get staff's taken leave
 // $result_taken_leave = $obj->getTakenLeave($emp_id, $where_in,$currentyear);
-//   while ($value_taken_leave_array[] = mysql_fetch_array($result_taken_leave));
-//   $count_indi_leave = mysql_num_rows($result2 = $obj->getIndividualLeave($emp_id)); 
+//   while ($value_taken_leave_array[] = mysqli_fetch_array($result_taken_leave));
+//   $count_indi_leave = mysqli_num_rows($result2 = $obj->getIndividualLeave($emp_id)); 
 //    if ($count_indi_leave > 0) {
 //        $result1 = $obj->getIndividualLeave($emp_id);
 //        $value_ini_leave = mysql_fetch_assoc($result1);
@@ -118,9 +118,9 @@ while ($current <= $last) {
 }
 ///get off day date array
 $getOffDayWeek = $obj1->getSpecificOffDayWeek($from, $to);
-$countOffDayWeek = mysql_num_rows($getOffDayWeek);
+$countOffDayWeek = mysqli_num_rows($getOffDayWeek);
 $array_off_day = array();
-while ($value_off_day = mysql_fetch_assoc($getOffDayWeek)) {
+while ($value_off_day = mysqli_fetch_assoc($getOffDayWeek)) {
     $array_off_day[] = $value_off_day['date'];
 }
 ///
@@ -158,12 +158,12 @@ else{ header("location:../view/$redirect_path.php?l=1");
 
 }
 }
-$count1 = mysql_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
+$count1 = mysqli_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
 //////////////////
 //check leave balance exceeded
 
 $result = $obj->checkLeaveOverlap($emp_id, $from, $to);
-while ($value = mysql_fetch_assoc($result)) {
+while ($value = mysqli_fetch_assoc($result)) {
     $leave_array[] = $value['leave_on'];
     $total_hours[] = $value['total_hours'];
 }
@@ -207,9 +207,9 @@ if (!$date_diff) {//no over laps
 } else {//overlap dates 
     if ($temp_leave_type == 5 || $temp_leave_type == 4) {
         if (!in_array(8, $total_hours)) {
-            $count1 = mysql_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
-            $count2 = mysql_num_rows($obj->checkHalfDayLeave($emp_id, $from));
-            $count3 = mysql_num_rows($obj->checkShortLeave($emp_id, $from));
+            $count1 = mysqli_num_rows($obj->checkShortLeaveExceeded($emp_id, $month, $year));
+            $count2 = mysqli_num_rows($obj->checkHalfDayLeave($emp_id, $from));
+            $count3 = mysqli_num_rows($obj->checkShortLeave($emp_id, $from));
             switch ($temp_leave_type) {
                 case 5:
 

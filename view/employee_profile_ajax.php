@@ -4,8 +4,9 @@ include_once '../model/leave.php';
 $obj=new employee();
 $obj1=new leave();
 $result = $obj->getEmployee($_REQUEST['emp_id']);
-$value=  mysql_fetch_assoc($result);
+$value=  mysqli_fetch_assoc($result);
 ?>
+
 <script>
 $('a[rel*=facebox]').facebox({
         loadingImage : 'facebox/loading.gif',
@@ -26,8 +27,8 @@ $('a[rel*=facebox]').facebox({
             <thead style="background-color:#000; color:#fff;"><th>Annual</th><th>Casual</th><th>Medical</th><th>Short</th></thead>
         <?php 
         $result=$obj->getEmployee($_REQUEST['emp_id']);
-        $count_indi_leave= mysql_num_rows($result2=$obj1->getIndividualLeave($_REQUEST['emp_id']));
-        $value=  mysql_fetch_assoc($result);
+        $count_indi_leave= mysqli_num_rows($result2=$obj1->getIndividualLeave($_REQUEST['emp_id']));
+        $value=  mysqli_fetch_assoc($result);
         if($count_indi_leave>0){
         $result3=$obj1->getIndividualLeave($_REQUEST['emp_id']);   
                                 }
@@ -36,7 +37,7 @@ else{
 }
         if($count_indi_leave>0){
               $row = array();
-        while($row[] = mysql_fetch_assoc($result3)); ?>
+        while($row[] = mysqli_fetch_assoc($result3)); ?>
        
         <td><?php   echo $row[0]['annual']; ?></td>
         <td><?php   echo $row[0]['casual']; ?></td>
@@ -48,7 +49,7 @@ else{
        
        <?php  }else{
         $row = array();
-        while($row[] = mysql_fetch_array($result1)); ?>
+        while($row[] = mysqli_fetch_array($result1)); ?>
        
         <td><?php   echo $row[0][2]; ?></td>
         <td><?php   echo $row[1][2]; ?></td>

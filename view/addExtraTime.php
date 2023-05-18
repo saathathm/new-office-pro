@@ -11,7 +11,7 @@ if(@$_REQUEST['date3']!=""){
 $obj=new attendance();
 $obj2=new employee();
 $countSession=$obj->countSession($date);
-$valueCount=mysql_fetch_assoc($countSession);
+$valueCount=mysqli_fetch_assoc($countSession);
 
 $maxcount=$valueCount['c'];
 $result2=$obj2->getAllEmployee();
@@ -31,7 +31,7 @@ echo '<table  class="table">'; ?>
      
  <thead style="background-color:#000; color:#fff;" ><th>Name</th><?php for($x=1; $x<=$maxcount; $x++){echo "<th>Time In</th><th>Time Out</th>"; }?><th>Add Time</th></thead>
   <?php     
- while($val=mysql_fetch_assoc($result2)){
+ while($val=mysqli_fetch_assoc($result2)){
     echo '<tr>';
         echo '<td>';
          echo $val['name'];
@@ -39,11 +39,11 @@ echo '<table  class="table">'; ?>
             echo '</td>';
          
 $result=$obj->getAllAttendanceDetail($date,$val['emp_id']); //check employee who loggedout or not
-$countIndividual=  mysql_fetch_assoc($obj->countSessionIndividual($date,$val['emp_id']));
+$countIndividual=  mysqli_fetch_assoc($obj->countSessionIndividual($date,$val['emp_id']));
 $countci=$countIndividual['ci'];
-$valextratime=mysql_fetch_assoc($obj->getExtraTime($val['emp_id'], $date));
-$countextra= count($valextratime['extra_status']) ;
- while($val=mysql_fetch_assoc($result)){
+$valextratime=mysqli_fetch_assoc($obj->getExtraTime($val['emp_id'], $date));
+$countextra= ($valextratime['extra_status']);
+ while($val=mysqli_fetch_assoc($result)){
         echo '<td>';
          echo date("h:i a",strtotime($val['login_time']));
           echo '</td>';
