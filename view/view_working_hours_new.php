@@ -6,24 +6,26 @@ if (!isset($_SESSION['emp_type'])) {
 include_once 'user.php';
 date_default_timezone_set('Asia/Colombo');
 $date = date("Y-m-d");
-if(isset($_REQUEST['date2'])){$date=$_REQUEST['date2'];}
+if (isset($_REQUEST['date2'])) {
+    $date = $_REQUEST['date2'];
+}
 require_once '../model/leave.php';
 require_once '../model/employee.php';
 require_once '../model/attendance.php';
 require_once '../model/cpanel.php';
 ?>
- <form action="" method="get" >
-       <input type="text" id="date2" name="date2" placeholder="Select date">
-       <input type="submit" class="btn btn-primary" value="Show" > 
- </form>
-  <h4>Working Hours Reports On <?php echo $date ?></h4>
+<form action="" method="get">
+    <input type="text" id="date2" name="date2" placeholder="Select date">
+    <input type="submit" class="btn btn-primary" value="Show">
+</form>
+<h4>Working Hours Reports On <?php echo $date ?></h4>
 <div class="container">
     <table class="table  rbborder">
-        <thead style="background-color:#000; color:#fff;" >
-        <th>Employee Name</th>
-        <th colspan="2">Must work/Today(H:M)</th>
-      
-       
+        <thead style="background-color:#000; color:#fff;">
+            <th>Employee Name</th>
+            <th colspan="2">Must work/Today(H:M)</th>
+
+
         </thead>
         <?php
         $obj = new employee();
@@ -63,17 +65,24 @@ require_once '../model/cpanel.php';
         while ($val = ($result)->fetch_assoc()) {
 
             $valextratime = ($obj1->getExtraTime($val['emp_id'], $date))->fetch_assoc();
-            $countextra = $valextratime['extra_time'];
-        $valextratime=($obj1->getExtraTimeweekly($val['emp_id'],$start,$end))->fetch_assoc();
-       $value_extra_time_week=$valextratime['extra_time_week'];
+            if (isset($valextratime)) {
+                $countextra = $valextratime['extra_time'];
+            } else {
+                $countextra = 0;
+            }
+            $valextratime = ($obj1->getExtraTimeweekly($val['emp_id'], $start, $end))->fetch_assoc();
+            $value_extra_time_week = $valextratime['extra_time_week'];
 
             $gwhi = $obj1->getWorkingHoursIndividual($date, $val['emp_id']);
             $valuegwhi = ($gwhi)->fetch_assoc();
+            if (!(isset($valuegwhi))) {
+                $valuegwhi['diff'] = 0;
+            }
             $seconds1 = $valuegwhi['diff'] + $countextra;
             //current week working hours
             $result2 = $obj1->getWeeklyWorkingHoursIndividual($start, $end, $val['emp_id']);
             $value2 = ($result2)->fetch_assoc();
-            $seconds2 = $value2['diff']+$value_extra_time_week;
+            $seconds2 = $value2['diff'] + $value_extra_time_week;
 
             //check employee status 
             $emp_id = $val['emp_id'];
@@ -112,48 +121,48 @@ require_once '../model/cpanel.php';
             $hours = floor($seconds1 / (60 * 60));
             $divisor_for_minutes = $seconds1 % (60 * 60);
             $minutes = floor($divisor_for_minutes / 60);
-//                          //weekly  
+            //                          //weekly  
             $hours2 = floor($seconds2 / (60 * 60));
             $divisor_for_minutes2 = $seconds2 % (60 * 60);
             $minutes2 = floor($divisor_for_minutes2 / 60);
-            ?> 
+        ?>
             <tr>
                 <td><?php echo $val['name'] ?></td>
                 <!--get current day working hours -->
                 <td width="50"><?php
-                $total_hours = $valuegsdlh['total_hours'];
+                                $total_hours = $valuegsdlh['total_hours'];
 
-                if ($countOffDay != 0) {
-                    echo $must_work = $hours_of_work_day;
-                } else {
-                     $must_work = ($hours_of_work_day - $total_hours * 3600);
-                }
-                include_once 'functions.php';
-                $ti = get_hours($must_work);
-                echo $ti;
-                echo "</td>";
-                echo "<td>";
-                if ($seconds1 > $must_work) {
-                    echo '<span class="label label-success">' . $hours . ":" . $minutes . '</span>';
-                } else {
-                    echo '<span class="label label-important">' . $hours . ":" . $minutes . '</span>';
-                } echo "</td>";
-            ?>
+                                if ($countOffDay != 0) {
+                                    echo $must_work = $hours_of_work_day;
+                                } else {
+                                    $must_work = ($hours_of_work_day - $total_hours * 3600);
+                                }
+                                include_once 'functions.php';
+                                $ti = get_hours($must_work);
+                                echo $ti;
+                                echo "</td>";
+                                echo "<td>";
+                                if ($seconds1 > $must_work) {
+                                    echo '<span class="label label-success">' . $hours . ":" . $minutes . '</span>';
+                                } else {
+                                    echo '<span class="label label-important">' . $hours . ":" . $minutes . '</span>';
+                                }
+                                echo "</td>";
+                                ?>
                 </td>
-             
+
             </tr>
-<?php } ?>
-    </table>     
+        <?php } ?>
+    </table>
 
 </div>
- <script>
-$(function() {
-		$( "#date2" ).datepicker({
-			
-			changeMonth: true,
-                        changeYear:false,
-			numberOfMonths: 1
-			});
-});
-       
+<script>
+    $(function() {
+        $("#date2").datepicker({
+
+            changeMonth: true,
+            changeYear: false,
+            numberOfMonths: 1
+        });
+    });
 </script>

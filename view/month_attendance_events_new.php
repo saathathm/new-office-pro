@@ -7,15 +7,15 @@ $date = date("$Y-$m-$i");
 $objGen = new GeneralFunction(); //qq
 
 
-$result = $objGen->staffAttendanceDetail($date,$_SESSION['staff_id']);
+$result = $objGen->staffAttendanceDetail($date, $_SESSION['staff_id']);
 $value = mysqli_fetch_assoc($result);
-$result1 = $objGen->getLeaveDetailNew($date,$_SESSION['staff_id']);
-echo '<br>' . '<span class="label label-success">' . "Login Time" . " &nbsp" . $value['login_time'] . '</span>' . '<br>';
-$leave_type=array();
-$total_hours=array();
-while($value1 = mysqli_fetch_assoc($result1)){
-   echo '<span class="label label-info">' .$value1['leave_type'] ."-". $value1['total_hours'].'</span>' . '<br>';
-    
+$result1 = $objGen->getLeaveDetailNew($date, $_SESSION['staff_id']); ?>
+<br> <span class="label label-success"> Login Time &nbsp <?php if (isset($value)) echo $value['login_time']; ?> </span> <br>
+<?php
+$leave_type = array();
+$total_hours = array();
+while ($value1 = mysqli_fetch_assoc($result1)) {
+   echo '<span class="label label-info">' . $value1['leave_type'] . "-" . $value1['total_hours'] . '</span>' . '<br>';
 }
 
 

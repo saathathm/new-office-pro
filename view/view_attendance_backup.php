@@ -89,8 +89,8 @@ while($value=mysqli_fetch_assoc($result1)){
         <?php } else { ?>
      <tr>   
             <td><a href="logout_user.php?employee_id=<?php echo $value['emp_id']; ?>&&id=<?php echo $value['id']; ?>" rel="facebox"></a></td>
-             <td><?php echo $value2['name'];?></td>
-             <td><?php echo $value3['name'];?></td>
+             <td><?php echo $value2['name'] ?? '';?></td>
+             <td><?php echo $value3['name'] ?? '';?></td>
             <td><?php echo $value['approved_by']; ?></td>
             <td><?php echo date("h:i a",strtotime($value['login_time'])); ?></td> 
             <td><?php echo date("h:i a",strtotime($value['logout_time'])); ?></td>

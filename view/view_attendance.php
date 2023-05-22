@@ -85,7 +85,7 @@ $obj3=new leave();
             <?php if(isset($_SESSION['emp_type']) AND $_SESSION['emp_type']==1 OR $_SESSION['emp_type']==2) { ?>
             <td><a href="view_attendance_backup.php?employee_id=<?php echo $emp_id; ?>&date4=<?php echo $_REQUEST['date3']; ?>&employee_name=<?php echo $value['name'];  ?>"><img src="images/Button_go.png" width="25" height="25"></a></td>
             <?php } ?>
-             <td><?php echo $value3['status']; ?></td>
+             <td><?php echo $value3['status'] ?? ''; ?></td>
        </tr>
         <?php } ?>
     </table>

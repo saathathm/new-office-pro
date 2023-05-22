@@ -6,42 +6,44 @@ if (!isset($_SESSION['emp_type'])) {
 include_once 'user.php';
 date_default_timezone_set('Asia/Colombo');
 $date = date("Y-m-d");
-if(isset($_REQUEST['date2'])){$date=$_REQUEST['date2'];}
+if (isset($_REQUEST['date2'])) {
+    $date = $_REQUEST['date2'];
+}
 require_once '../model/leave.php';
 require_once '../model/employee.php';
 require_once '../model/attendance.php';
 require_once '../model/cpanel.php';
 
-      //get start date and end date of a WEEK
-        $time = strtotime($date);
-        $day = date('w', $time);
-        if ($day == 0) {
-            $day = 6;
-            $time = strtotime(date("Y-m-d", (strtotime('-1 day', strtotime($date)))));
-        }
-        $time += ((7 * @$week) + 1 - $day) * 24 * 3600;
-        $start = date('Y-n-j', $time);
-        $time += 6 * 24 * 3600;
-        $end = date('Y-n-j', $time);
+//get start date and end date of a WEEK
+$time = strtotime($date);
+$day = date('w', $time);
+if ($day == 0) {
+    $day = 6;
+    $time = strtotime(date("Y-m-d", (strtotime('-1 day', strtotime($date)))));
+}
+$time += ((7 * @$week) + 1 - $day) * 24 * 3600;
+$start = date('Y-n-j', $time);
+$time += 6 * 24 * 3600;
+$end = date('Y-n-j', $time);
 ?>
-   <form action="" method="get" >
-       <input type="text" id="date2" name="date2" placeholder="Select date" value="<?php echo $date; ?>">
-       <input type="submit" class="btn btn-primary" value="Show" > 
-     </form>
-  From <p class="text-warning"><?php echo $start; ?></p>To &nbsp;<p class="text-warning"><?php echo $end; ?></p>
+<form action="" method="get">
+    <input type="text" id="date2" name="date2" placeholder="Select date" value="<?php echo $date; ?>">
+    <input type="submit" class="btn btn-primary" value="Show">
+</form>
+From <p class="text-warning"><?php echo $start; ?></p>To &nbsp;<p class="text-warning"><?php echo $end; ?></p>
 <div class="container">
     <table class="table  rbborder">
-        <thead style="background-color:#000; color:#fff;" >
-        <th>Employee Name</th>
-                <th colspan="2">Must work/Weekly(H:M)</th>
-                </thead>
+        <thead style="background-color:#000; color:#fff;">
+            <th>Employee Name</th>
+            <th colspan="2">Must work/Weekly(H:M)</th>
+        </thead>
         <?php
         $obj = new employee();
         $obj1 = new attendance();
         $obj2 = new leave();
         $obj3 = new Cpanel();
         ////////////////// 
-  
+
         //current day working hours
         $getOffDay = $obj3->getSpecificOffDay($date);
         $getOffDayWeek = $obj3->getSpecificOffDayWeek($start, $end);
@@ -63,17 +65,24 @@ require_once '../model/cpanel.php';
         while ($val = ($result)->fetch_assoc()) {
 
             $valextratime = ($obj1->getExtraTime($val['emp_id'], $date))->fetch_assoc();
-            $countextra = $valextratime['extra_time'];
-        $valextratime=($obj1->getExtraTimeweekly($val['emp_id'],$start,$end))->fetch_assoc();
-       $value_extra_time_week=$valextratime['extra_time_week'];
+            if (isset($valextratime)) {
+                $countextra = $valextratime['extra_time'];
+            } else {
+                $countextra = 0;
+            }
+            $valextratime = ($obj1->getExtraTimeweekly($val['emp_id'], $start, $end))->fetch_assoc();
+            $value_extra_time_week = $valextratime['extra_time_week'];
 
             $gwhi = $obj1->getWorkingHoursIndividual($date, $val['emp_id']);
             $valuegwhi = ($gwhi)->fetch_assoc();
+            if (!(isset($valuegwhi))) {
+                $valuegwhi['diff'] = 0;
+            }
             $seconds1 = $valuegwhi['diff'] + $countextra;
             //current week working hours
             $result2 = $obj1->getWeeklyWorkingHoursIndividual($start, $end, $val['emp_id']);
             $value2 = ($result2)->fetch_assoc();
-            $seconds2 = $value2['diff']+$value_extra_time_week;
+            $seconds2 = $value2['diff'] + $value_extra_time_week;
 
             //check employee status 
             $emp_id = $val['emp_id'];
@@ -112,14 +121,14 @@ require_once '../model/cpanel.php';
             $hours = floor($seconds1 / (60 * 60));
             $divisor_for_minutes = $seconds1 % (60 * 60);
             $minutes = floor($divisor_for_minutes / 60);
-//                          //weekly  
+            //                          //weekly  
             $hours2 = floor($seconds2 / (60 * 60));
             $divisor_for_minutes2 = $seconds2 % (60 * 60);
             $minutes2 = floor($divisor_for_minutes2 / 60);
-            ?> 
+        ?>
             <tr>
                 <td><?php echo $val['name'] ?></td>
-                              <!--get weekly working hours -->
+                <!--get weekly working hours -->
                 <td width="20">
                     <?php
                     $total_hours_week = $valuegwlh['total_hours_week'];
@@ -140,20 +149,19 @@ require_once '../model/cpanel.php';
                     }
                     echo "</td>";
                     ?>
-               
+
             </tr>
-<?php } ?>
-    </table>     
+        <?php } ?>
+    </table>
 
 </div>
 <script>
-$(function() {
-		$( "#date2" ).datepicker({
-			
-			changeMonth: true,
-                        changeYear:false,
-			numberOfMonths: 1
-			});
-});
-       
+    $(function() {
+        $("#date2").datepicker({
+
+            changeMonth: true,
+            changeYear: false,
+            numberOfMonths: 1
+        });
+    });
 </script>

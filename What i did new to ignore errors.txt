@@ -1,0 +1,99 @@
+#1 if(isset($rrr[1][0])){  in view/view_leave_summary.php. line in 46.
+
+------------------------------------------------------------------------------------
+
+#2 if (isset($valextratime)) {
+                $countextra = $valextratime['extra_time'];
+            } else {
+                $countextra = 0;
+            }
+in view/overview_new.php. line in 68-72.
+
+
+#3 if (!(isset($valuegwhi))) {
+                $valuegwhi['diff'] = 0;
+            }
+in view/overview_new.php. line in 78-80.
+
+------------------------------------------------------------------------------------
+
+#4 if (isset($valextratime)) {
+                $countextra = $valextratime['extra_time'];
+            } else {
+                $countextra = 0;
+            } in view/view_working_hours_new.php. line in 68-72.
+
+
+#5 if (!(isset($valuegwhi))) {
+                $valuegwhi['diff'] = 0;
+            }
+in view/view_working_hours_new.php. line in 78-80.
+
+------------------------------------------------------------------------------------
+
+#6 if (isset($valextratime)) {
+                $countextra = $valextratime['extra_time'];
+            } else {
+                $countextra = 0;
+            } 
+view/working_hours_week_new.php line in 68-72.
+
+
+#7 if (!(isset($valuegwhi))) {
+                $valuegwhi['diff'] = 0;
+            }
+in view/working_hours_week_new.php. line in 78-80.
+
+-----------------------------------------------------------------------------------
+
+#8  <br> <span class="label label-success"> Login Time &nbsp <?php if (isset($value)) echo $value['login_time']; ?> </span> <br>
+in view/month_attendance_events_new.php line in 13.
+
+-----------------------------------------------------------------------------------
+
+#9 <td><?php echo $value3['status'] ?? ''; ?></td>
+in view/view_attendance.php line in 88.
+
+--------------------------------------------------------------
+
+#10 <td><?php echo $value2['name'] ?? '';?></td>
+             <td><?php echo $value3['name'] ?? '';?></td>
+in view/view_attendance_backup.php line in 92-93.
+
+--------------------------------------------------
+
+#11 $maxcount=$valueCount['c'] ?? 0;
+line in 19.
+
+if (isset($valextratime)) {
+    $countextra = $valextratime['extra_status'];
+} else {
+    $countextra = 0;
+    $valextratime['extra_status'] = 0;
+}
+line in 52-59.
+page @ view/addExtraTime.php
+
+--------------------------------------------------------------
+
+#12 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
