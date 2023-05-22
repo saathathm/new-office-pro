@@ -265,7 +265,7 @@ if (isset($_REQUEST['l']) && $_REQUEST['l'] == '2') {
         <?php
         $result3 = $obj2->planAnnualLeave($_SESSION['emp_id'], date("Y"));
         $value3 = ($result3)->fetch_assoc();
-        echo $value3['no_of_days'];
+        echo $value3['no_of_days'] ?? '';
         $count = ($result3)->num_rows;
         //  if($count<2){echo "You have a message".'<a href="planAnnualLeave.php" rel="facebox"><img src="images/mes.png" width="25"></a>';}
         $include_file_path = "events.php";
